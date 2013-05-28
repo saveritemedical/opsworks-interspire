@@ -3,6 +3,7 @@ Chef::Log.info("Skipping Interspire EBS setup - using what is already on the EBS
 bash "adding bind mount for cache, config to #{node[:interspire][:opsworks_autofs_map_file]}" do
 	user 'root'
 	code <<-EOC
+		echo '/mnt/srv/www/administration_panel/shared/interspire -fstype=none,bind,rw :/vol/interspire' >> /etc/auto.opsworks
 		echo '/srv/www/administration_panel/shared/interspire -fstype=none,bind,rw :/vol/interspire' >> /etc/auto.opsworks
 		service autofs restart
 	EOC
