@@ -4,7 +4,7 @@ if (node[:interspire][:ec2_path] && ! FileTest.directory?(node[:interspire][:ec2
   execute "Copy Interspire data to EBS for first init" do
     command "mkdir -p /mnt/interspire"
     not_if do
-      FileTest.directory?(node[:interspire][:ec2_path])
+      FileTest.directory?("/mnt/interspire")
     end
   end
 
