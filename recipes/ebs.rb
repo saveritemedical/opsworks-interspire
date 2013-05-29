@@ -9,12 +9,12 @@ if (node[:interspire][:ec2_path] && ! FileTest.directory?(node[:interspire][:ec2
   end
 
   directory node[:interspire][:ec2_path] do
-    owner "apache2"
-    group "apache2"
+    owner "apache"
+    group "nginx"
   end
 
   execute "ensure MySQL data owned by MySQL user" do
-    command "chown -R apache2:apache2 #{node[:interspire][:path]}"
+    command "chown -R apache:nginx #{node[:interspire][:path]}"
     action :run
   end
 
