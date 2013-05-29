@@ -27,6 +27,8 @@ bash "adding bind mount for cache, config to #{node[:interspire][:opsworks_autof
 	code <<-EOC
 		echo '#{node[:interspire][:path]} -fstype=none,bind,rw :#{node[:interspire][:ec2_path]}' >> #{node[:interspire][:opsworks_autofs_map_file]}
 		service autofs restart
+		ln -s #{node[:interspire][:path]}/config #{node[:interspire][:shared_path]}/conf
+		ln -s #{node[:interspire][:path]}/cache #{node[:interspire][:shared_path]}/cache
 	EOC
 	not_if { ::File.read("#{node[:interspire][:opsworks_autofs_map_file]}").include?("#{node[:interspire][:path]}") }
 end
